@@ -18,16 +18,17 @@ useEffect(()=>{
         axios.get(`${dataURL}`)
         .then((response)=>{
         setData(response.data.products)
+        setSearchedData(response.data.products)
         })
+        
 },[]);
-
-const searching =(e)=>{
-    setSearch(e.target.value)
-}
 //ფილტრი
 const found = data.filter((data)=> 
 data.name.toLowerCase().includes(search))
 
+const searching =(e)=>{
+    setSearch(e.target.value)
+}
 const handle =()=>{
     setSearchedData(found)
 }
@@ -39,7 +40,6 @@ const sortMethod = {
     AZ: {method: (a,b)=> a.name > b.name ? 1 : -1},
     ZA: {method: (a,b)=> a.name > b.name ? -1 : 1}
 }
-
 const handleSort =(e)=> {
     setSort(e.target.value)
 }
@@ -57,7 +57,7 @@ const handleSort =(e)=> {
     <option value="ZA">Z-A</option>
 </select>
 <div className='ph'>{searchedData.sort(sortMethod[sort].method)
-.map((data, index)=> <div className='phs'> <p className='phone' key={index}>
+.map((data, index)=> <div className='phs' key={index}> <p className='phone' >
     <img width={"180"}  src={data.thumb_img.files.file}/>
 <br/>
 ძველი ფასი: <span style={{textDecoration: "line-through"}}>{data.original_price}</span>
